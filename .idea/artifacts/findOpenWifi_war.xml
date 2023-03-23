@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="findOpenWifi:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>findOpenWifi</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="findOpenWifi-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="findOpenWifi:war exploded" />
+    </root>
+  </artifact>
+</component>
