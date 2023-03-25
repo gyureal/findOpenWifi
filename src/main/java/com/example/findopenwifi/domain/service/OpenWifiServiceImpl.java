@@ -15,8 +15,8 @@ public class OpenWifiServiceImpl implements OpenWifiService {
     private final OpenWifiInfoRepository openWifiInfoRepository;
 
     @Override
-    public void saveOpenApiRawData(OpenWifiInfo openWifiInfo) {
-
+    public void saveOpenApiRawData(List<OpenWifiInfo> openWifiInfo) {
+        openWifiInfo.stream().forEach(openWifiInfoRepository::save);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class OpenWifiServiceImpl implements OpenWifiService {
         List<OpenWifiInfo> filteredList = filterNearData(allInfos, FILTERED_COUNT);
 
 
-        return null;
+        return filteredList;
     }
 
     private List<OpenWifiInfo> filterNearData(List<OpenWifiInfo> allInfos, int filteredCount) {

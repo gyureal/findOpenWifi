@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OpenWifiService {
 
-    public void saveOpenApiRawData(OpenWifiInfo openWifiInfo);
+    public void saveOpenApiRawData(List<OpenWifiInfo> openWifiInfo);
 
     public List<OpenWifiInfo> getWifiNearBy(double x, double y);
 }
