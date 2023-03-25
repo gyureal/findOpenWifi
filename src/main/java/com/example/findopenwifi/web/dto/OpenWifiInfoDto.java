@@ -1,11 +1,12 @@
-package com.example.findopenwifi.domain.model;
+package com.example.findopenwifi.web.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
-public class OpenWifiInfo {
+@Getter @Setter
+public class OpenWifiInfoDto {
 
     private String mgrNo;
     private String wrdofc;
@@ -23,5 +24,4 @@ public class OpenWifiInfo {
     private double lat;
     private double lnt;
     private Date workDttm;
-
 }
