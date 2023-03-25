@@ -1,13 +1,23 @@
 package com.example.findopenwifi.web.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@Getter @Setter
+@Getter
+@Setter
+@Builder
 public class OpenWifiInfoDto {
 
+    private String manageNo;
+    private double distance;
+
+    private String dataDelYn;
+    private Date dataRegDt;
+
+    /* 오픈 API 포털 데이터 */
     private String mgrNo;
     private String wrdofc;
     private String mainNm;
