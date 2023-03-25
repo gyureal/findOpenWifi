@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OpenWifiInfoRepository {
 
-    void save(OpenWifiInfo openWifiInfo);
+    String save(OpenWifiInfo openWifiInfo);
 
     List<OpenWifiInfo> findAll();
 }

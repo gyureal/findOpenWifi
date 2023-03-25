@@ -2,18 +2,17 @@ package com.example.findopenwifi.domain.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Builder
+@ToString
 public class OpenWifiInfo {
 
-    private String manageNo;
-    private double distance;
-
     private String dataDelYn;
-    private Date dataRegDt;
+    private String dataRegDt;
 
     /* 오픈 API 포털 데이터 */
     private String mgrNo;
@@ -31,6 +30,6 @@ public class OpenWifiInfo {
     private String remars3;
     private double lat;
     private double lnt;
-    private Date workDttm;
+    private String workDttm;
 
 }
