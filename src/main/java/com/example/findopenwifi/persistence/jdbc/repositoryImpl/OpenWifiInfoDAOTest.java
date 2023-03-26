@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-class OpenWifiInfoRepositoryImplTest {
+class OpenWifiInfoDAOTest {
 
     //private final OpenWifiInfoRepository openWifiInfoRepository;
     @Test
@@ -32,7 +32,7 @@ class OpenWifiInfoRepositoryImplTest {
                 .workDttm(workDttm)
                 .build();
 
-        OpenWifiInfoRepositoryImpl openWifiInfoRepository = new OpenWifiInfoRepositoryImpl();
+        OpenWifiInfoDAO openWifiInfoRepository = new OpenWifiInfoDAO();
         openWifiInfoRepository.save(openWifiInfo);
 
         OpenWifiInfo findInfo = openWifiInfoRepository.findByMgrNo(mgrNo);
@@ -42,7 +42,7 @@ class OpenWifiInfoRepositoryImplTest {
     @Test
     void 공공API테이블_전체_조회() {
 
-        OpenWifiInfoRepositoryImpl openWifiInfoRepository = new OpenWifiInfoRepositoryImpl();
+        OpenWifiInfoDAO openWifiInfoRepository = new OpenWifiInfoDAO();
         List<OpenWifiInfo> openWifiInfoList = openWifiInfoRepository.findAll();
 
         System.out.println(openWifiInfoList);
@@ -50,7 +50,7 @@ class OpenWifiInfoRepositoryImplTest {
 
     @Test
     void 데이터_삭제() {
-        OpenWifiInfoRepositoryImpl openWifiInfoRepository = new OpenWifiInfoRepositoryImpl();
+        OpenWifiInfoDAO openWifiInfoRepository = new OpenWifiInfoDAO();
         openWifiInfoRepository.deleteAll();
 
         List<OpenWifiInfo> all = openWifiInfoRepository.findAll();

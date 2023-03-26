@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenWifiInfoRepositoryImpl implements OpenWifiInfoRepository {
+public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
     @Override
     public String save(OpenWifiInfo openWifiInfo) {
         String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
