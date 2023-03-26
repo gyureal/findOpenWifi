@@ -9,4 +9,8 @@ public interface OpenWifiInfoRepository {
     String save(OpenWifiInfo openWifiInfo);
 
     List<OpenWifiInfo> findAll();
+
+    OpenWifiInfo findByMgrNo(String mgrNo);
+
+    void deleteAll();
 }

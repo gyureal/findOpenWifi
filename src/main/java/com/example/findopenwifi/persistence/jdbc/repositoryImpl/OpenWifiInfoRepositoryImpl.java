@@ -98,6 +98,7 @@ public class OpenWifiInfoRepositoryImpl implements OpenWifiInfoRepository {
             rs = stat.executeQuery();
             while (rs.next()) {
                 OpenWifiInfo openWifiInfo = OpenWifiInfo.builder()
+                        .id(rs.getInt("id"))
                         .mgrNo(rs.getString("mgrNo"))
                         .wrdofc(rs.getString("wrdofc"))
                         .mainNm(rs.getString("mainNm"))
@@ -149,5 +150,124 @@ public class OpenWifiInfoRepositoryImpl implements OpenWifiInfoRepository {
             }
         }
         return openWifiInfoList;
+    }
+
+    @Override
+    public OpenWifiInfo findByMgrNo(String mgrNo) {
+        Connection conn = null;
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        OpenWifiInfo returnValue = null;
+
+        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+
+            String sql = "select * from openwifi where mgrNo = ?";
+
+            // SQL 수행
+            stat = conn.prepareStatement(sql);
+            stat.setString(1, mgrNo);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                OpenWifiInfo openWifiInfo = OpenWifiInfo.builder()
+                        .id(rs.getInt("id"))
+                        .mgrNo(rs.getString("mgrNo"))
+                        .wrdofc(rs.getString("wrdofc"))
+                        .mainNm(rs.getString("mainNm"))
+                        .adres1(rs.getString("adres1"))
+                        .adres2(rs.getString("adres2"))
+                        .instlFloor(rs.getString("instlFloor"))
+                        .instlTy(rs.getString("instlTy"))
+                        .instlMby(rs.getString("instlMby"))
+                        .svcSe(rs.getString("svcSe"))
+                        .cmcwr(rs.getString("cmcwr"))
+                        .cnstcYear(rs.getString("cnstcYear"))
+                        .inoutDoor(rs.getString("inoutDoor"))
+                        .remars3(rs.getString("remars3"))
+                        .lat(rs.getDouble("lat"))
+                        .lnt(rs.getDouble("lnt"))
+                        .workDttm(rs.getString("workDttm"))
+                        .dataDelYn(rs.getString("dataDelYn"))
+                        .dataRegDt(rs.getString("dataRegDt"))
+                        .build();
+
+                returnValue = openWifiInfo;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (stat != null && !stat.isClosed()) {
+                    stat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return returnValue;
+    }
+
+    @Override
+    public void deleteAll() {
+        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+
+        Connection conn = null;
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            String sql = "delete from openwifi";
+            // SQL 수행
+            stat = conn.prepareStatement(sql);
+
+            stat.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (stat != null && !stat.isClosed()) {
+                    stat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

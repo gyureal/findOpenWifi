@@ -11,6 +11,8 @@ import java.util.Date;
 @ToString
 public class OpenWifiInfo {
 
+    private int id;
+
     private String dataDelYn;
     private String dataRegDt;
 
