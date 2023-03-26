@@ -2,17 +2,22 @@ package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
-import com.example.findopenwifi.web.dto.OpenWifiInfoDto;
+import com.example.findopenwifi.persistence.jdbc.repositoryImpl.OpenWifiInfoDAO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-public class OpenWifiServiceImpl implements OpenWifiService {
+public enum OpenWifiServiceImpl implements OpenWifiService {
+
+    INSTANCE;   //  enum 객체 수
 
     private static final int FILTERED_COUNT = 20;
-
     private final OpenWifiInfoRepository openWifiInfoRepository;
+
+    OpenWifiServiceImpl() {  // enum 은 싱글톤, public 생성자 사용 못함 -> new 불가
+        openWifiInfoRepository = new OpenWifiInfoDAO();
+    }
 
     @Override
     public void saveOpenApiRawData(List<OpenWifiInfo> openWifiInfo) {

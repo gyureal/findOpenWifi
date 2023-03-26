@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 class OpenWifiInfoDAOTest {
 
     private OpenWifiInfoDAO openWifiInfoDAO;
