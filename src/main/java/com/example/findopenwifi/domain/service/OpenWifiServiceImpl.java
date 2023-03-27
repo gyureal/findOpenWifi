@@ -41,5 +41,4 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
         return null;
     }
 
-
 }
