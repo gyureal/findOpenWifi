@@ -43,8 +43,7 @@ public enum OpenApiService {
     public List<OpenWifiInfo> extractOpenWifiInfo(String rawOpenWifiData) {
         // RawWifiInfoObject 데이터 추출하기
         JsonObject tbPublicWifiInfo = jsonParsingUtil.getJsonObject(rawOpenWifiData, "TbPublicWifiInfo");
-        JsonObject row = jsonParsingUtil.getJsonObject(tbPublicWifiInfo, "row");
-        JsonArray jsonArray = row.getAsJsonArray();
+        JsonArray jsonArray = jsonParsingUtil.getJsonArray(tbPublicWifiInfo, "row");
 
         List<OpenWifiInfo> wifiInfoList = new ArrayList<>();
         for (int i = 0; i < jsonArray.size(); i++) {
