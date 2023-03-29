@@ -1,11 +1,11 @@
-package com.example.findopenwifi.web.dto;
+package com.example.findopenwifi.domain.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class JsonObjectWifiInfo {
+public class RawWifiInfoObject {
 
     private String X_SWIFI_MGR_NO;
     private String X_SWIFI_WRDOFC;
@@ -13,6 +13,7 @@ public class JsonObjectWifiInfo {
     private String X_SWIFI_ADRES1;
     private String X_SWIFI_ADRES2;
     private String X_SWIFI_INSTL_FLOOR;
+    private String X_SWIFI_INSTL_TY;
     private String X_SWIFI_INSTL_MBY;
     private String X_SWIFI_SVC_SE;
     private String X_SWIFI_CMCWR;
