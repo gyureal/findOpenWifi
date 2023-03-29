@@ -1,10 +1,9 @@
 package com.example.findopenwifi.domain.model;
 
+import com.example.findopenwifi.domain.dto.RawWifiInfoObject;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Date;
 
 @Getter
 @Builder
@@ -33,5 +32,26 @@ public class OpenWifiInfo {
     private double lat;
     private double lnt;
     private String workDttm;
+
+    public static OpenWifiInfo from(RawWifiInfoObject raw) {
+        return OpenWifiInfo.builder()
+                .mgrNo(raw.getX_SWIFI_MGR_NO())
+                .wrdofc(raw.getX_SWIFI_WRDOFC())
+                .mainNm(raw.getX_SWIFI_MAIN_NM())
+                .adres1(raw.getX_SWIFI_ADRES1())
+                .adres2(raw.getX_SWIFI_ADRES2())
+                .instlFloor(raw.getX_SWIFI_INSTL_FLOOR())
+                .instlTy(raw.getX_SWIFI_INSTL_TY())
+                .instlMby(raw.getX_SWIFI_INSTL_MBY())
+                .svcSe(raw.getX_SWIFI_SVC_SE())
+                .cmcwr(raw.getX_SWIFI_CMCWR())
+                .cnstcYear(raw.getX_SWIFI_CNSTC_YEAR())
+                .inoutDoor(raw.getX_SWIFI_INOUT_DOOR())
+                .remars3(raw.getX_SWIFI_REMARS3())
+                .lat(raw.getLAT())
+                .lnt(raw.getLNT())
+                .workDttm(raw.getWORK_DTTM())
+                .build();
+    }
 
 }
