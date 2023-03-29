@@ -12,6 +12,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
     public String save(OpenWifiInfo openWifiInfo) {
         String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
 
+
         Connection conn = null;
         PreparedStatement stat = null;
         ResultSet rs = null;
@@ -19,6 +20,8 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
         String returnValue = "";
 
         try {
+            Class.forName("org.sqlite.JDBC");
+
             conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             String sql = "insert into openwifi (mgrNo, wrdofc, mainNm, adres1, adres2 " +
                     " , instlFloor, instlTy, instlMby, svcSe, cmcwr, cnstcYear" +
@@ -49,7 +52,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
                 returnValue = openWifiInfo.getMgrNo();
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -89,6 +92,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
         String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
 
         try {
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
 
             String sql = "select * from openwifi";
@@ -162,6 +166,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
         String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
 
         try {
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
 
             String sql = "select * from openwifi where mgrNo = ?";
@@ -235,6 +240,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
         ResultSet rs = null;
 
         try {
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
             String sql = "delete from openwifi";
             // SQL 수행
@@ -242,7 +248,7 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
 
             stat.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

@@ -1,7 +1,6 @@
 package com.example.findopenwifi.persistence.jdbc.repositoryImpl;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
