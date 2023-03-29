@@ -18,9 +18,9 @@ public class OpenApiController extends HttpServlet {
     }
 
 
-    @Override
+    @Override  //TODO: Post로 바꾸기
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        openApiService.getRawOpenWifiData(1, 100);
+        openApiService.saveOpenWifiInfoFromTo(1, 10);
     }
 }
