@@ -1,31 +1,70 @@
 package com.example.findopenwifi.domain.service;
 
+import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.util.JsonParsingUtil;
+import com.example.findopenwifi.persistence.jdbc.repositoryImpl.OpenWifiInfoDAO;
+import com.example.findopenwifi.domain.dto.RawWifiInfoObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum OpenApiService {
 
     INSTANCE;
 
-    public int getApiCount() {
-        String result = requestOpenApi(1, 1);
-        System.out.println(result);
+    private static final Gson gson = new Gson();
+    private static final JsonParsingUtil jsonParsingUtil = JsonParsingUtil.INSTANCE;
+    private static final OpenWifiInfoDAO openWifiInfoDao = new OpenWifiInfoDAO();
 
-        return 0;
+    public void getAllOpenWifiData() {
+
     }
 
-    private String requestOpenApi(int fromNumber, int toNumber) {
+    public void saveOpenWifiInfoFromTo(int fromNumber, int toNumber) {
+        List<OpenWifiInfo> openWifiInfoList = getOpenWifiInfoFromTo(fromNumber, toNumber);
+
+        for (OpenWifiInfo openWifiInfo : openWifiInfoList) {
+            openWifiInfoDao.save(openWifiInfo);
+        }
+    }
+
+    public List<OpenWifiInfo> getOpenWifiInfoFromTo(int fromNumber, int toNumber) {
+        String rawOpenWifiData = getRawOpenWifiData(fromNumber, toNumber);
+        return extractOpenWifiInfo(rawOpenWifiData);
+    }
+
+    public List<OpenWifiInfo> extractOpenWifiInfo(String rawOpenWifiData) {
+        // RawWifiInfoObject 데이터 추출하기
+        JsonObject tbPublicWifiInfo = jsonParsingUtil.getJsonObject(rawOpenWifiData, "TbPublicWifiInfo");
+        JsonObject row = jsonParsingUtil.getJsonObject(tbPublicWifiInfo, "row");
+        JsonArray jsonArray = row.getAsJsonArray();
+
+        List<OpenWifiInfo> wifiInfoList = new ArrayList<>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            RawWifiInfoObject raw = gson.fromJson(jsonArray.get(i), RawWifiInfoObject.class);
+
+            OpenWifiInfo openWifiInfo = OpenWifiInfo.from(raw);
+            wifiInfoList.add(openWifiInfo);
+        }
+        return wifiInfoList;
+    }
+
+    public String getRawOpenWifiData(int fromNumber, int toNumber) {
         StringBuffer result = new StringBuffer();
         String strResult = "";
         try {
             // URL 설정
             StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/");
 
-            // search 변수는 인코딩이 필요하다고 했으므로 그 부분만 인코딩
             urlBuilder.append("5245626172696f7034395975634f72");  // key
-            urlBuilder.append("/xml");
+            urlBuilder.append("/json");
             urlBuilder.append("/TbPublicWifiInfo");
             urlBuilder.append("/" + fromNumber);
             urlBuilder.append("/" + toNumber);
@@ -35,11 +74,10 @@ public enum OpenApiService {
 
             // Request 형식 설정
             conn.setRequestMethod("GET");
-            //conn.setRequestProperty("Content-Type", "application/json");
 
             // 응답 데이터 받아오기
             BufferedReader rd;
-            if(conn.getResponseCode() >= 200 & conn.getResponseCode() <= 300) {
+            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             } else {
                 rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
