@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public enum OpenApiService {
 
@@ -23,16 +24,36 @@ public enum OpenApiService {
     private static final JsonParsingUtil jsonParsingUtil = JsonParsingUtil.INSTANCE;
     private static final OpenWifiInfoDAO openWifiInfoDao = new OpenWifiInfoDAO();
 
-    public void getAllOpenWifiData() {
+    private static final int batchSize = 999;
 
+    public int getAllOpenWifiData() {
+
+        int from = 0;
+        int to = 0;
+        int totalCount = 0;
+        while (true) {
+            from = to + 1;
+            to = from + batchSize;
+
+            int applyCount = saveOpenWifiInfoFromTo(from, to);
+
+            if (applyCount == 0) {
+                break;
+            }
+            totalCount += applyCount;
+        }
+        return totalCount;
     }
 
-    public void saveOpenWifiInfoFromTo(int fromNumber, int toNumber) {
+    public int saveOpenWifiInfoFromTo(int fromNumber, int toNumber) {
         List<OpenWifiInfo> openWifiInfoList = getOpenWifiInfoFromTo(fromNumber, toNumber);
 
+        int applyCount = 0;
         for (OpenWifiInfo openWifiInfo : openWifiInfoList) {
             openWifiInfoDao.save(openWifiInfo);
+            applyCount += 1;
         }
+        return applyCount;
     }
 
     public List<OpenWifiInfo> getOpenWifiInfoFromTo(int fromNumber, int toNumber) {
@@ -42,8 +63,11 @@ public enum OpenApiService {
 
     public List<OpenWifiInfo> extractOpenWifiInfo(String rawOpenWifiData) {
         // RawWifiInfoObject 데이터 추출하기
-        JsonObject tbPublicWifiInfo = jsonParsingUtil.getJsonObject(rawOpenWifiData, "TbPublicWifiInfo");
-        JsonArray jsonArray = jsonParsingUtil.getJsonArray(tbPublicWifiInfo, "row");
+        Optional<JsonObject> tbPublicWifiInfo = jsonParsingUtil.getJsonObject(rawOpenWifiData, "TbPublicWifiInfo");
+        if (!tbPublicWifiInfo.isPresent()) {
+            return new ArrayList<>();
+        }
+        JsonArray jsonArray = jsonParsingUtil.getJsonArray(tbPublicWifiInfo.get(), "row");
 
         List<OpenWifiInfo> wifiInfoList = new ArrayList<>();
         for (int i = 0; i < jsonArray.size(); i++) {
