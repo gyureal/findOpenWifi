@@ -18,8 +18,8 @@ public class OpenApiController extends HttpServlet {
     }
 
 
-    @Override  //TODO: Post로 바꾸기
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int applyCount = openApiService.getAllOpenWifiData();
         System.out.println(applyCount);
