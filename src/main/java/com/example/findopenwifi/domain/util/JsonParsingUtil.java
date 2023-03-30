@@ -5,11 +5,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.Optional;
+
 public enum JsonParsingUtil {
     INSTANCE;
 
-    public JsonObject getJsonObject(String jsonData, String tag) {
-        return JsonParser.parseString(jsonData).getAsJsonObject().get(tag).getAsJsonObject();
+    public Optional<JsonObject> getJsonObject(String jsonData, String tag) {
+
+        JsonElement jsonElement = JsonParser.parseString(jsonData).getAsJsonObject().get(tag);
+        if (jsonElement == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(jsonElement.getAsJsonObject());
     }
 
     public JsonObject getJsonObject(JsonObject jsonObject, String tag) {
