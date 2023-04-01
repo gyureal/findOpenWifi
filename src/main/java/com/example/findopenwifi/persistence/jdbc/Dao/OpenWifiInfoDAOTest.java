@@ -1,4 +1,4 @@
-package com.example.findopenwifi.persistence.jdbc.repositoryImpl;
+package com.example.findopenwifi.persistence.jdbc.Dao;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import org.junit.jupiter.api.BeforeEach;

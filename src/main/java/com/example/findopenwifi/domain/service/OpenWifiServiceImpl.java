@@ -2,7 +2,7 @@ package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
-import com.example.findopenwifi.persistence.jdbc.repositoryImpl.OpenWifiInfoDAO;
+import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

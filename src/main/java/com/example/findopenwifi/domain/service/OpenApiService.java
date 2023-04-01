@@ -2,7 +2,7 @@ package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.util.JsonParsingUtil;
-import com.example.findopenwifi.persistence.jdbc.repositoryImpl.OpenWifiInfoDAO;
+import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import com.example.findopenwifi.domain.dto.RawWifiInfoObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
