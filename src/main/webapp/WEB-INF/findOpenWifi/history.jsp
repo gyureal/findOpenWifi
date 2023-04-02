@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.net.URLEncoder" %><%--
   Created by IntelliJ IDEA.
   User: yonggyujeong
   Date: 2023/03/26
@@ -39,7 +39,9 @@
     </style>
 </head>
 <body>
-    <%@include file="fragment/bodyHeader.jsp"%>
+<jsp:include page="fragment/bodyHeader.jsp">
+    <jsp:param name="titleName" value='<%=URLEncoder.encode("위치 히스토리 목록", "UTF-8")%>'/>
+</jsp:include>
     <table>
         <thead>
             <tr>

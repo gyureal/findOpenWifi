@@ -1,13 +1,23 @@
-<%--
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URLDecoder" %><%--
   Created by IntelliJ IDEA.
   User: yonggyujeong
   Date: 2023/04/02
   Time: 6:39 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+    // jsp:param 사용시 인코딩 문제로 아래 코드 추가
+    request.setCharacterEncoding("UTF-8");
+    String param = request.getParameter("titleName");
+    String titleName = URLDecoder.decode(param, "UTF-8");
+%>
+
+
 <div class="body-header-title">
-    <H1>위치 히스토리 목록</H1>
+    <H1><%=titleName%></H1>
 </div>
 <div class="body-header-navi">
     <a href="/">홈</a>
@@ -24,6 +34,5 @@
     .body-header-navi {
         padding: 0.2em 0em;
     }
-
 </style>
 
