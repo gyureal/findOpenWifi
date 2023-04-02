@@ -56,31 +56,47 @@
     <table>
         <thead>
         <tr>
-            <th>ID</th>
+            <th>거리<br>(Km)</th>
+            <th>관리번호</th>
+            <th>자치구</th>
+            <th>와이파이명</th>
+            <th>도로명주소</th>
+            <th>상세주소</th>
+            <th>설치위치<br>(층)</th>
+            <th>설치유형</th>
+            <th>설치기관</th>
+            <th>서비스구분</th>
+            <th>망종류</th>
+            <th>설치년도</th>
+            <th>실내외구분</th>
+            <th>WIFI접속환경</th>
             <th>X좌표</th>
             <th>Y좌표</th>
-            <th>조회일자</th>
-            <th>비고</th>
+            <th>작업일자</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>1</td>
-            <td>1234.1123</td>
-            <td>124.145</td>
-            <td>2023-04-23T02:34:35</td>
-            <td class="button-table">
-                <button type="button" onclick="deleteHistory()">삭제</button>
-            </td>
+            <td>0.1344</td>
+            <td>WIFI12033</td>
+            <td>마포구</td>
+            <td>망원지구안내센터</td>
+            <td>도로명주소입니다</td>
+            <td>사무실 입니다.</td>
+            <td>3</td>
+            <td>커뮤니티-행성</td>
+            <td>서울시</td>
+            <td>공공아이파아</td>
+            <td>임대망</td>
+            <td>3030</td>
+            <td>실내</td>
+            <td></td>
+            <td>304.2222</td>
+            <td>232.3333</td>
+            <td>2022-03-24 10:33:33.3</td>
         </tr>
         <tr>
-            <td>2</td>
-            <td>1234.1123</td>
-            <td>124.145</td>
-            <td>2023-04-23T02:34:35</td>
-            <td class="button-table">
-                <button type="button" onclick="deleteHistory()">삭제</button>
-            </td>
+            <td colspan="17" style="text-align: center">위치 정보를 입력한 후에 조회해 주세요.</td>
         </tr>
         </tbody>
     </table>
