@@ -20,7 +20,7 @@
     <H1><%=titleName%></H1>
 </div>
 <div class="body-header-navi">
-    <a href="/">홈</a>
+    <a href="/wifi">홈</a>
     <span> | </span>
     <a href="/wifi/history">위치 히스토리 목록</a>
     <span> | </span>

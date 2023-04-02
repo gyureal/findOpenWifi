@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <H2>122개의 WIFI 정보를 정상적으로 저장하였습니다.</H2>
+    <H2>${applyCount}개의 WIFI 정보를 정상적으로 저장하였습니다.</H2>
     <p><a href="/wifi/list">홈 으로 가기</a></p>
 </body>
 </html>

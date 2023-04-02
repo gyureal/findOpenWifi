@@ -43,14 +43,14 @@
      <jsp:include page="fragment/bodyHeader.jsp">
          <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보 구하기", "UTF-8")%>'/>
      </jsp:include>
-    <form>
+    <form action="/wifi/openApi" method="post">
         <p>
             <label for="lat"> LAT: </label>
             <input type="text" name="lat" id="lat" value="">
             <label for="lnt"> ,LNT: </label>
             <input type="text" name="lnt" id="lnt" value="">
-            <button onclick="">내 위치 가져오기</button>
-            <button onclick="">근처 WIFI 정보 보기</button>
+            <button type="button" onclick="getMyLocation()">내 위치 가져오기</button>
+            <button type="submit">근처 WIFI 정보 보기</button>
         </p>
     </form>
     <table>
@@ -100,6 +100,12 @@
         </tr>
         </tbody>
     </table>
+
+<script>
+    function getMyLocation() {
+
+    }
+</script>
 
 </body>
 </html>

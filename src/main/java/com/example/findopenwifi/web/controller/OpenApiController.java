@@ -23,6 +23,7 @@ public class OpenApiController extends HttpServlet {
 
         //int applyCount = openApiService.getAllOpenWifiData();
         int applyCount = 111;
+        req.setAttribute("applyCount", applyCount);
         req.getRequestDispatcher("/WEB-INF/findOpenWifi/searchFinished.jsp")
                 .forward(req, resp);
     }
