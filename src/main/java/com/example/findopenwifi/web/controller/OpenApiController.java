@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "openApiController", urlPatterns = "/wifi/getOpenApi")
+@WebServlet(name = "openApiController", urlPatterns = "/wifi/openApi")
 public class OpenApiController extends HttpServlet {
 
     private final OpenApiService openApiService;
@@ -19,9 +19,11 @@ public class OpenApiController extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int applyCount = openApiService.getAllOpenWifiData();
-        System.out.println(applyCount);
+        //int applyCount = openApiService.getAllOpenWifiData();
+        int applyCount = 111;
+        req.getRequestDispatcher("/WEB-INF/findOpenWifi/searchFinished.jsp")
+                .forward(req, resp);
     }
 }

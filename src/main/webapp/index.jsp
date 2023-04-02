@@ -8,6 +8,8 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+    <a href="/wifi/list">wifi list</a>
+    <a href="/wifi/history">wifi history</a>
+    <a href="/wifi/openApi">wifi openApi</a>
 </body>
 </html>
