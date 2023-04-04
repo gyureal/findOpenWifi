@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import com.example.findopenwifi.domain.util.JsonParsingUtil;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import com.example.findopenwifi.domain.dto.RawWifiInfoObject;
@@ -22,12 +23,16 @@ public enum OpenApiService {
 
     private static final Gson gson = new Gson();
     private static final JsonParsingUtil jsonParsingUtil = JsonParsingUtil.INSTANCE;
-    private static final OpenWifiInfoDAO openWifiInfoDao = new OpenWifiInfoDAO();
+    private static final OpenWifiInfoRepository openWifiInfoRepository = new OpenWifiInfoDAO();
 
     private static final int batchSize = 999;
 
     public int getAllOpenWifiData() {
 
+        // 기존 데이터 삭제
+        openWifiInfoRepository.deleteAll();
+
+        // 데이터 가져오기
         int from = 0;
         int to = 0;
         int totalCount = 0;
@@ -50,7 +55,7 @@ public enum OpenApiService {
 
         int applyCount = 0;
         for (OpenWifiInfo openWifiInfo : openWifiInfoList) {
-            openWifiInfoDao.save(openWifiInfo);
+            openWifiInfoRepository.save(openWifiInfo);
             applyCount += 1;
         }
         return applyCount;
