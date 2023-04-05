@@ -1,6 +1,7 @@
-package com.example.findopenwifi.persistence.jdbc.Dao;
+package com.example.findopenwifi.domain.repository;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
@@ -8,13 +9,13 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
-class OpenWifiInfoDAOTest {
+class OpenWifiInfoRepositoryTest {
 
-    private OpenWifiInfoDAO openWifiInfoDAO;
+    private OpenWifiInfoRepository openWifiInfoRepository;
 
     @BeforeEach
     void ready() {
-        openWifiInfoDAO = new OpenWifiInfoDAO();
+        openWifiInfoRepository = new OpenWifiInfoDAO();
     }
 
     //private final OpenWifiInfoRepository openWifiInfoRepository;
@@ -38,25 +39,25 @@ class OpenWifiInfoDAOTest {
                 .workDttm(workDttm)
                 .build();
 
-        openWifiInfoDAO.save(openWifiInfo);
+        openWifiInfoRepository.save(openWifiInfo);
 
-        OpenWifiInfo findInfo = openWifiInfoDAO.findByMgrNo(mgrNo);
+        OpenWifiInfo findInfo = openWifiInfoRepository.findByMgrNo(mgrNo);
         assertThat(findInfo.getMgrNo()).isEqualTo(mgrNo);
     }
 
     @Test
     void 공공API테이블_전체_조회() {
 
-        List<OpenWifiInfo> openWifiInfoList = openWifiInfoDAO.findAll();
+        List<OpenWifiInfo> openWifiInfoList = openWifiInfoRepository.findAll();
 
         System.out.println(openWifiInfoList);
     }
 
     @Test
     void 데이터_삭제() {
-        openWifiInfoDAO.deleteAll();
+        openWifiInfoRepository.deleteAll();
 
-        List<OpenWifiInfo> all = openWifiInfoDAO.findAll();
+        List<OpenWifiInfo> all = openWifiInfoRepository.findAll();
         assertThat(all.size()).isEqualTo(0);
     }
 }
