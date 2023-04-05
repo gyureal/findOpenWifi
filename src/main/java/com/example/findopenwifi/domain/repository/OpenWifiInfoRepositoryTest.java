@@ -11,14 +11,8 @@ import java.util.List;
 
 class OpenWifiInfoRepositoryTest {
 
-    private OpenWifiInfoRepository openWifiInfoRepository;
+    private OpenWifiInfoRepository openWifiInfoRepository = new OpenWifiInfoDAO();
 
-    @BeforeEach
-    void ready() {
-        openWifiInfoRepository = new OpenWifiInfoDAO();
-    }
-
-    //private final OpenWifiInfoRepository openWifiInfoRepository;
     @Test
     void 공공API_RAW_DATA_INSERT() {
 

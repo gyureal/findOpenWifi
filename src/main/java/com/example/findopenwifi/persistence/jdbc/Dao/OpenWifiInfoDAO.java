@@ -8,27 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
+
+    private static String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
     @Override
     public String save(OpenWifiInfo openWifiInfo) {
-        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+        checkDbDriver();
 
+        String sql = "insert into openwifi (mgrNo, wrdofc, mainNm, adres1, adres2 " +
+                " , instlFloor, instlTy, instlMby, svcSe, cmcwr, cnstcYear" +
+                " ,inoutDoor, remars3, lat, lnt, workDttm) " +
+                " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-        Connection conn = null;
-        PreparedStatement stat = null;
-        ResultSet rs = null;
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+            PreparedStatement stat = conn.prepareStatement(sql)) {
 
-        String returnValue = "";
-
-        try {
-            Class.forName("org.sqlite.JDBC");
-
-            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
-            String sql = "insert into openwifi (mgrNo, wrdofc, mainNm, adres1, adres2 " +
-                    " , instlFloor, instlTy, instlMby, svcSe, cmcwr, cnstcYear" +
-                    " ,inoutDoor, remars3, lat, lnt, workDttm) " +
-                    " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-            // SQL 수행
-            stat = conn.prepareStatement(sql);
             stat.setString(1, openWifiInfo.getMgrNo());
             stat.setString(2, openWifiInfo.getWrdofc());
             stat.setString(3, openWifiInfo.getMainNm());
@@ -49,231 +42,119 @@ public class OpenWifiInfoDAO implements OpenWifiInfoRepository {
             int affected = stat.executeUpdate();
 
             if (affected > 0) {
-                returnValue = openWifiInfo.getMgrNo();
+                return openWifiInfo.getMgrNo();
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (stat != null && !stat.isClosed()) {
-                    stat.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-        return returnValue;
+        return "";
     }
 
     @Override
     public List<OpenWifiInfo> findAll() {
-        Connection conn = null;
-        PreparedStatement stat = null;
-        ResultSet rs = null;
+        checkDbDriver();
+
+        String sql = "select * from openwifi";
+
         List<OpenWifiInfo> openWifiInfoList = new ArrayList<>();
 
-        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+             PreparedStatement stat = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stat.executeQuery()) {
+                while (rs.next()) {
+                    OpenWifiInfo openWifiInfo = OpenWifiInfo.builder()
+                            .id(rs.getInt("id"))
+                            .mgrNo(rs.getString("mgrNo"))
+                            .wrdofc(rs.getString("wrdofc"))
+                            .mainNm(rs.getString("mainNm"))
+                            .adres1(rs.getString("adres1"))
+                            .adres2(rs.getString("adres2"))
+                            .instlFloor(rs.getString("instlFloor"))
+                            .instlTy(rs.getString("instlTy"))
+                            .instlMby(rs.getString("instlMby"))
+                            .svcSe(rs.getString("svcSe"))
+                            .cmcwr(rs.getString("cmcwr"))
+                            .cnstcYear(rs.getString("cnstcYear"))
+                            .inoutDoor(rs.getString("inoutDoor"))
+                            .remars3(rs.getString("remars3"))
+                            .lat(rs.getDouble("lat"))
+                            .lnt(rs.getDouble("lnt"))
+                            .workDttm(rs.getString("workDttm"))
+                            .dataDelYn(rs.getString("dataDelYn"))
+                            .dataRegDt(rs.getString("dataRegDt"))
+                            .build();
 
-        try {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
-
-            String sql = "select * from openwifi";
-
-            // SQL 수행
-            stat = conn.prepareStatement(sql);
-            rs = stat.executeQuery();
-            while (rs.next()) {
-                OpenWifiInfo openWifiInfo = OpenWifiInfo.builder()
-                        .id(rs.getInt("id"))
-                        .mgrNo(rs.getString("mgrNo"))
-                        .wrdofc(rs.getString("wrdofc"))
-                        .mainNm(rs.getString("mainNm"))
-                        .adres1(rs.getString("adres1"))
-                        .adres2(rs.getString("adres2"))
-                        .instlFloor(rs.getString("instlFloor"))
-                        .instlTy(rs.getString("instlTy"))
-                        .instlMby(rs.getString("instlMby"))
-                        .svcSe(rs.getString("svcSe"))
-                        .cmcwr(rs.getString("cmcwr"))
-                        .cnstcYear(rs.getString("cnstcYear"))
-                        .inoutDoor(rs.getString("inoutDoor"))
-                        .remars3(rs.getString("remars3"))
-                        .lat(rs.getDouble("lat"))
-                        .lnt(rs.getDouble("lnt"))
-                        .workDttm(rs.getString("workDttm"))
-                        .dataDelYn(rs.getString("dataDelYn"))
-                        .dataRegDt(rs.getString("dataRegDt"))
-                        .build();
-
-                openWifiInfoList.add(openWifiInfo);
+                    openWifiInfoList.add(openWifiInfo);
+                }
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (stat != null && !stat.isClosed()) {
-                    stat.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return openWifiInfoList;
     }
 
     @Override
     public OpenWifiInfo findByMgrNo(String mgrNo) {
-        Connection conn = null;
-        PreparedStatement stat = null;
-        ResultSet rs = null;
-        OpenWifiInfo returnValue = null;
+        checkDbDriver();
 
-        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+        String sql = "select * from openwifi where mgrNo = ?";
 
-        try {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+             PreparedStatement stat = conn.prepareStatement(sql)) {
 
-            String sql = "select * from openwifi where mgrNo = ?";
-
-            // SQL 수행
-            stat = conn.prepareStatement(sql);
             stat.setString(1, mgrNo);
-            rs = stat.executeQuery();
-            while (rs.next()) {
-                OpenWifiInfo openWifiInfo = OpenWifiInfo.builder()
-                        .id(rs.getInt("id"))
-                        .mgrNo(rs.getString("mgrNo"))
-                        .wrdofc(rs.getString("wrdofc"))
-                        .mainNm(rs.getString("mainNm"))
-                        .adres1(rs.getString("adres1"))
-                        .adres2(rs.getString("adres2"))
-                        .instlFloor(rs.getString("instlFloor"))
-                        .instlTy(rs.getString("instlTy"))
-                        .instlMby(rs.getString("instlMby"))
-                        .svcSe(rs.getString("svcSe"))
-                        .cmcwr(rs.getString("cmcwr"))
-                        .cnstcYear(rs.getString("cnstcYear"))
-                        .inoutDoor(rs.getString("inoutDoor"))
-                        .remars3(rs.getString("remars3"))
-                        .lat(rs.getDouble("lat"))
-                        .lnt(rs.getDouble("lnt"))
-                        .workDttm(rs.getString("workDttm"))
-                        .dataDelYn(rs.getString("dataDelYn"))
-                        .dataRegDt(rs.getString("dataRegDt"))
-                        .build();
-
-                returnValue = openWifiInfo;
+            try (ResultSet rs = stat.executeQuery()) {
+                while (rs.next()) {
+                    return OpenWifiInfo.builder()
+                            .id(rs.getInt("id"))
+                            .mgrNo(rs.getString("mgrNo"))
+                            .wrdofc(rs.getString("wrdofc"))
+                            .mainNm(rs.getString("mainNm"))
+                            .adres1(rs.getString("adres1"))
+                            .adres2(rs.getString("adres2"))
+                            .instlFloor(rs.getString("instlFloor"))
+                            .instlTy(rs.getString("instlTy"))
+                            .instlMby(rs.getString("instlMby"))
+                            .svcSe(rs.getString("svcSe"))
+                            .cmcwr(rs.getString("cmcwr"))
+                            .cnstcYear(rs.getString("cnstcYear"))
+                            .inoutDoor(rs.getString("inoutDoor"))
+                            .remars3(rs.getString("remars3"))
+                            .lat(rs.getDouble("lat"))
+                            .lnt(rs.getDouble("lnt"))
+                            .workDttm(rs.getString("workDttm"))
+                            .dataDelYn(rs.getString("dataDelYn"))
+                            .dataRegDt(rs.getString("dataRegDt"))
+                            .build();
+                }
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (stat != null && !stat.isClosed()) {
-                    stat.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
-        return returnValue;
+        return null;
     }
 
     @Override
     public void deleteAll() {
-        String dbFile = "/Users/yonggyujeong/myFolder/programing/db/sqlite/findOpenWifi.sqlite3";
+        checkDbDriver();
 
-        Connection conn = null;
-        PreparedStatement stat = null;
-        ResultSet rs = null;
+        String sql = "delete from openwifi";
 
-        try {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
-            String sql = "delete from openwifi";
-            // SQL 수행
-            stat = conn.prepareStatement(sql);
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+             PreparedStatement stat = conn.prepareStatement(sql)) {
 
             stat.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        }
+    }
 
-            try {
-                if (stat != null && !stat.isClosed()) {
-                    stat.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private static void checkDbDriver() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
