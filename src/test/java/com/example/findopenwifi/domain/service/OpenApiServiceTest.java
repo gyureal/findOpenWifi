@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.service.OpenApiService;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 

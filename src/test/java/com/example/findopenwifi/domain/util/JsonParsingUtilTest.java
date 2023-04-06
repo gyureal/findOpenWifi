@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.util;
 
 import com.example.findopenwifi.domain.service.OpenWifiServiceImpl;
+import com.example.findopenwifi.domain.util.JsonParsingUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.repository;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

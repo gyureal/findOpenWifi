@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.repository;
 
 import com.example.findopenwifi.domain.model.SearchHistory;
+import com.example.findopenwifi.domain.repository.SearchHistoryRepository;
 import com.example.findopenwifi.persistence.jdbc.Dao.SearchHistoryDAO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
