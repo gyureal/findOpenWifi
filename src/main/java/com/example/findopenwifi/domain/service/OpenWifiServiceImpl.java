@@ -36,10 +36,8 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
     private List<OpenWifiInfo> filterNearData(List<OpenWifiInfo> allInfos,
                                               double x, double y, int filteredCount) {
         return allInfos.stream()
-                .map(info -> {
-                    info.setDistanceFrom(x, y);
-                    return info;
-                }).sorted((o1, o2) -> Double.compare(o1.getDistance(), o2.getDistance()))
+                .peek(info -> info.setDistanceFrom(x, y))
+                .sorted((o1, o2) -> Double.compare(o1.getDistance(), o2.getDistance()))
                 .limit(filteredCount)
                 .collect(Collectors.toList());
     }
