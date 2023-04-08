@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,17 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
     private static final int FILTERED_COUNT = 20;
     private OpenWifiInfoRepository openWifiInfoRepository;
 
+    private HistoryService historyService;
+
     OpenWifiServiceImpl() {  // enum 은 싱글톤, public 생성자 사용 못함 -> new 불가
         openWifiInfoRepository = new OpenWifiInfoDAO();
+        historyService = HistoryServiceImpl.INSTANCE;
     }
 
-    OpenWifiServiceImpl setOpenWifiInfoRepositoryForTest(OpenWifiInfoRepository openWifiInfoRepository) {
+    OpenWifiServiceImpl dependencyInjectionForTest(OpenWifiInfoRepository openWifiInfoRepository,
+                                                   HistoryService historyService) {
         this.openWifiInfoRepository = openWifiInfoRepository;
+        this.historyService = historyService;
         return this;
     }
 
@@ -31,6 +37,8 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
 
     @Override
     public List<OpenWifiInfo> getWifiNearBy(double x, double y) {
+
+        historyService.saveHistory(SearchHistory.of(x, y));
 
         List<OpenWifiInfo> allInfos = openWifiInfoRepository.findAll();
 

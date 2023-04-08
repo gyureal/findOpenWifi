@@ -1,6 +1,7 @@
 package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
+import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -12,16 +13,19 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class OpenWifiServiceImplTest {
 
     OpenWifiInfoRepository openWifiInfoRepository = mock(OpenWifiInfoRepository.class);
+    HistoryService historyService = mock(HistoryService.class);
 
     OpenWifiService openWifiService = OpenWifiServiceImpl.INSTANCE
-            .setOpenWifiInfoRepositoryForTest(openWifiInfoRepository);
+            .dependencyInjectionForTest(openWifiInfoRepository, historyService);
 
     @Test
     @DisplayName("입력 받은 좌표값 기준 가까이 있는 20개데이터 리턴")
@@ -32,7 +36,8 @@ class OpenWifiServiceImplTest {
 
         int length = 21;
         // given(openWifiInfoRepository.findAll()).willReturn(generateAllInfoData(length, x, y));
-        when(openWifiInfoRepository.findAll()).thenReturn(generateAllInfoData(length, x, y));
+        given(openWifiInfoRepository.findAll()).willReturn(generateAllInfoData(length, x, y));
+        //given(historyService.saveHistory())
 
         // when
         List<OpenWifiInfo> wifiNearBy = openWifiService.getWifiNearBy(x, y);
