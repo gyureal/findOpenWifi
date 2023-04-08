@@ -13,27 +13,33 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class OpenWifiServiceImplTest {
 
-    OpenWifiService openWifiService = OpenWifiServiceImpl.INSTANCE;
+    OpenWifiInfoRepository openWifiInfoRepository = mock(OpenWifiInfoRepository.class);
+
+    OpenWifiService openWifiService = OpenWifiServiceImpl.INSTANCE
+            .setOpenWifiInfoRepositoryForTest(openWifiInfoRepository);
 
     @Test
     @DisplayName("입력 받은 좌표값 기준 가까이 있는 20개데이터 리턴")
-    void getWifiNearBy_test(@Mock OpenWifiInfoRepository openWifiInfoRepository) {
+    void getWifiNearBy_test() {
         // given
         double x = 1.0;
         double y = 1.0;
 
         int length = 21;
-        given(openWifiInfoRepository.findAll()).willReturn(generateAllInfoData(length, x, y));
+        // given(openWifiInfoRepository.findAll()).willReturn(generateAllInfoData(length, x, y));
+        when(openWifiInfoRepository.findAll()).thenReturn(generateAllInfoData(length, x, y));
 
         // when
         List<OpenWifiInfo> wifiNearBy = openWifiService.getWifiNearBy(x, y);
 
         // then
-        assertThat(wifiNearBy.size()).isEqualTo(20);
-        assertThat(wifiNearBy.get(wifiNearBy.size())).isEqualTo("mgr_19");
+        assertEquals(20, wifiNearBy.size());
+        assertEquals("mgr_19", wifiNearBy.get(19).getMgrNo());
     }
 
     List<OpenWifiInfo> generateAllInfoData(int length, double x, double y) {
