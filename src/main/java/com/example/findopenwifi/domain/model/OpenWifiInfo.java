@@ -29,9 +29,15 @@ public class OpenWifiInfo {
     private String cnstcYear;
     private String inoutDoor;
     private String remars3;
-    private double lat;
-    private double lnt;
+    private double lat;     // Y 좌표
+    private double lnt;     // X 좌표
     private String workDttm;
+
+    public double calculateDistance(double x, double y) {
+        double xDiff = Math.abs(x - lnt);
+        double yDiff = Math.abs(y - lat);
+        return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+    }
 
     public static OpenWifiInfo from(RawWifiInfoObject raw) {
         return OpenWifiInfo.builder()
