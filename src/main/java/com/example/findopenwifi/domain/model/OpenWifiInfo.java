@@ -12,6 +12,8 @@ public class OpenWifiInfo {
 
     private int id;
 
+    private double distance;
+
     private String dataDelYn;
     private String dataRegDt;
 
@@ -32,6 +34,10 @@ public class OpenWifiInfo {
     private double lat;     // Y 좌표
     private double lnt;     // X 좌표
     private String workDttm;
+
+    public void setDistanceFrom(double x, double y) {
+        this.distance = calculateDistance(x, y);
+    }
 
     public double calculateDistance(double x, double y) {
         double xDiff = Math.abs(x - lnt);

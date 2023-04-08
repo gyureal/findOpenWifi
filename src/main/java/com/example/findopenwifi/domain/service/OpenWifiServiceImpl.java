@@ -6,6 +6,7 @@ import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public enum OpenWifiServiceImpl implements OpenWifiService {
@@ -29,16 +30,18 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
 
         List<OpenWifiInfo> allInfos = openWifiInfoRepository.findAll();
 
-        List<OpenWifiInfo> filteredList = filterNearData(allInfos, FILTERED_COUNT);
-
-
-        return filteredList;
+        return filterNearData(allInfos, x, y, FILTERED_COUNT);
     }
 
-    private List<OpenWifiInfo> filterNearData(List<OpenWifiInfo> allInfos, int filteredCount) {
-
-
-        return null;
+    private List<OpenWifiInfo> filterNearData(List<OpenWifiInfo> allInfos,
+                                              double x, double y, int filteredCount) {
+        return allInfos.stream()
+                .map(info -> {
+                    info.setDistanceFrom(x, y);
+                    return info;
+                }).sorted((o1, o2) -> Double.compare(o1.getDistance(), o2.getDistance()))
+                .limit(filteredCount)
+                .collect(Collectors.toList());
     }
 
 }
