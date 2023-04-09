@@ -1,4 +1,4 @@
-package com.example.findopenwifi.web.dto;
+package com.example.findopenwifi.domain.dto;
 
 import lombok.*;
 
