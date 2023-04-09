@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <title>History</title>
@@ -53,31 +54,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>1234.1123</td>
-                <td>124.145</td>
-                <td>2023-04-23T02:34:35</td>
-                <td class="button-table">
-                    <button type="button" onclick="deleteHistory()">삭제</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>1234.1123</td>
-                <td>124.145</td>
-                <td>2023-04-23T02:34:35</td>
-                <td class="button-table">
-                    <button type="button" onclick="deleteHistory()">삭제</button>
-                </td>
-            </tr>
+            <c:forEach items="${dtoList}" var="dto">
+                <tr>
+                    <td>${dto.id}</td>
+                    <td>${dto.getXValue()}</td>
+                    <td>${dto.getYValue()}</td>
+                    <td>${dto.searchDateTime}</td>
+                    <td class="button-table">
+                        <button id=${dto.id} type="button" onclick="deleteHistory(${dto.id})">삭제</button>
+                    </td>
+                </tr>
+            </c:forEach>
         </tbody>
 
     </table>
 
     <script>
-        function deleteHistory() {
-            alert('delete button clicked');
+        function deleteHistory(id) {
+            alert(id + 'delete button clicked');
         }
     </script>
 </body>

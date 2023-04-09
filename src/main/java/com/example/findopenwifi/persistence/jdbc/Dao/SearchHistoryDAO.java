@@ -55,7 +55,7 @@ public class SearchHistoryDAO implements SearchHistoryRepository {
     public List<SearchHistory> findAll() {
         checkDbDriver();
 
-        String sql = "select * from searchHistory where data_del_yn != 'Y'";
+        String sql = "select * from searchHistory where data_del_yn != 'Y' order by id";
 
         List<SearchHistory> list = new ArrayList<>();
 
