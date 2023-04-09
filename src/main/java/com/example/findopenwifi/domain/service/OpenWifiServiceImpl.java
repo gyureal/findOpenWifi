@@ -5,7 +5,7 @@ import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import com.example.findopenwifi.util.MapperUtil;
-import com.example.findopenwifi.web.dto.OpenWifiInfoDTO;
+import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

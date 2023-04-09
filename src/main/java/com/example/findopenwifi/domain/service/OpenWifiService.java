@@ -1,7 +1,8 @@
 package com.example.findopenwifi.domain.service;
 
+import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
-import com.example.findopenwifi.web.dto.OpenWifiInfoDTO;
+
 
 import java.util.List;
 

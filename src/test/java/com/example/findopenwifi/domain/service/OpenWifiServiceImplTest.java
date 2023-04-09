@@ -1,5 +1,6 @@
 package com.example.findopenwifi.domain.service;
 
+import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
@@ -40,7 +41,7 @@ class OpenWifiServiceImplTest {
         //given(historyService.saveHistory())
 
         // when
-        List<OpenWifiInfo> wifiNearBy = openWifiService.getWifiNearBy(x, y);
+        List<OpenWifiInfoDTO> wifiNearBy = openWifiService.getWifiNearBy(x, y);
 
         // then
         assertEquals(20, wifiNearBy.size());
