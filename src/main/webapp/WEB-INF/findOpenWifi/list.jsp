@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <title>List</title>
@@ -43,12 +44,13 @@
      <jsp:include page="fragment/bodyHeader.jsp">
          <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보 구하기", "UTF-8")%>'/>
      </jsp:include>
-    <form action="/wifi/openApi" method="post">
+    <form action="/wifi/list" method="post" onsubmit="return validateInput()">
         <p>
             <label for="lat"> LAT: </label>
-            <input type="text" name="lat" id="lat" value="">
+            <input type="number" name="lat" id="lat" value="">
             <label for="lnt"> ,LNT: </label>
-            <input type="text" name="lnt" id="lnt" value="">
+            <input type="number" name="lnt" id="lnt" value="">
+
             <button type="button" onclick="getMyLocation()">내 위치 가져오기</button>
             <button type="submit">근처 WIFI 정보 보기</button>
         </p>
@@ -76,34 +78,50 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>0.1344</td>
-            <td>WIFI12033</td>
-            <td>마포구</td>
-            <td>망원지구안내센터</td>
-            <td>도로명주소입니다</td>
-            <td>사무실 입니다.</td>
-            <td>3</td>
-            <td>커뮤니티-행성</td>
-            <td>서울시</td>
-            <td>공공아이파아</td>
-            <td>임대망</td>
-            <td>3030</td>
-            <td>실내</td>
-            <td></td>
-            <td>304.2222</td>
-            <td>232.3333</td>
-            <td>2022-03-24 10:33:33.3</td>
-        </tr>
-        <tr>
-            <td colspan="17" style="text-align: center">위치 정보를 입력한 후에 조회해 주세요.</td>
-        </tr>
+        <c:if test="${empty dtoList}">
+            <tr>
+                <td colspan="17" style="text-align: center">위치 정보를 입력한 후에 조회해 주세요.</td>
+            </tr>
+        </c:if>
+        <c:forEach items="${dtoList}" var="dto">
+            <tr>
+                <td>${dto.distance}</td>
+                <td>${dto.mgrNo}</td>
+                <td>${dto.wrdofc}</td>
+                <td>${dto.mainNm}</td>
+                <td>${dto.adres1}</td>
+                <td>${dto.adres2}</td>
+                <td>${dto.instlFloor}</td>
+                <td>${dto.instlTy}</td>
+                <td>${dto.instlMby}</td>
+                <td>${dto.svcSe}</td>
+                <td>${dto.cmcwr}</td>
+                <td>${dto.cnstcYear}</td>
+                <td>${dto.inoutDoor}</td>
+                <td>${dto.remars3}</td>
+                <td>${dto.lat}</td>
+                <td>${dto.lnt}</td>
+                <td>${dto.workDttm}</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 
 <script>
     function getMyLocation() {
 
+    }
+
+    function validateInput() {
+        var lat = document.getElementById('lat').value;
+        var lnt = document.getElementById('lnt').value;
+        console.log(lat);
+        console.log(lnt);
+        if (lat == null || lnt == null || lat == '' || lnt == '') {
+            alert("좌표값을 입력해 주세요");
+            return false;
+        }
+        return true;
     }
 </script>
 
