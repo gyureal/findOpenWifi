@@ -4,7 +4,9 @@ import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
-import lombok.RequiredArgsConstructor;
+import com.example.findopenwifi.util.MapperUtil;
+import com.example.findopenwifi.web.dto.OpenWifiInfoDTO;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +20,12 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
 
     private HistoryService historyService;
 
+    private ModelMapper modelMapper;
+
     OpenWifiServiceImpl() {  // enum 은 싱글톤, public 생성자 사용 못함 -> new 불가
         openWifiInfoRepository = new OpenWifiInfoDAO();
         historyService = HistoryServiceImpl.INSTANCE;
+        modelMapper = MapperUtil.INSTANCE.get();
     }
 
     OpenWifiServiceImpl dependencyInjectionForTest(OpenWifiInfoRepository openWifiInfoRepository,
@@ -36,13 +41,16 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
     }
 
     @Override
-    public List<OpenWifiInfo> getWifiNearBy(double x, double y) {
+    public List<OpenWifiInfoDTO> getWifiNearBy(double x, double y) {
 
         historyService.saveHistory(SearchHistory.of(x, y));
 
         List<OpenWifiInfo> allInfos = openWifiInfoRepository.findAll();
+        List<OpenWifiInfo> filteredInfo = filterNearData(allInfos, x, y, FILTERED_COUNT);
 
-        return filterNearData(allInfos, x, y, FILTERED_COUNT);
+        return filteredInfo.stream()
+                .map(vo -> modelMapper.map(vo, OpenWifiInfoDTO.class))
+                .collect(Collectors.toList());
     }
 
     private List<OpenWifiInfo> filterNearData(List<OpenWifiInfo> allInfos,
