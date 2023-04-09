@@ -15,17 +15,20 @@
     String titleName = URLDecoder.decode(param, "UTF-8");
 %>
 
+<jsp:include page="../util/loading/loading.jsp" />
+<div>
+    <div class="body-header-title">
+        <H1><%=titleName%></H1>
+    </div>
+    <div class="body-header-navi">
+        <a href="/wifi">홈</a>
+        <span> | </span>
+        <a href="/wifi/history">위치 히스토리 목록</a>
+        <span> | </span>
+        <a href="#" onclick="getAllOpenApi()">Open API 와이파이 정보 가져오기</a>
+    </div>
+</div>
 
-<div class="body-header-title">
-    <H1><%=titleName%></H1>
-</div>
-<div class="body-header-navi">
-    <a href="/wifi">홈</a>
-    <span> | </span>
-    <a href="/wifi/history">위치 히스토리 목록</a>
-    <span> | </span>
-    <a href="/wifi/openApi">Open API 와이파이 정보 가져오기</a>
-</div>
 
 <style>
     .body-header-title {
@@ -35,4 +38,11 @@
         padding: 0.2em 0em;
     }
 </style>
+
+<script>
+    function getAllOpenApi() {
+        showLoading();
+        location.href="wifi/openApi";
+    }
+</script>
 
