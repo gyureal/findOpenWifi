@@ -33,5 +33,5 @@ public class OpenWifiInfoDTO {
     private String remars3;
     private double lat;
     private double lnt;
-    private Date workDttm;
+    private String workDttm;
 }

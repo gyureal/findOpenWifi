@@ -48,11 +48,11 @@
     <form action="/wifi/list" method="post" onsubmit="return validateInput()">
         <p>
             <label for="lat"> LAT: </label>
-            <input type="number" name="lat" id="lat" value="">
+            <input type="number" name="lat" step="any" id="lat" value="">
             <label for="lnt"> ,LNT: </label>
-            <input type="number" name="lnt" id="lnt" value="">
+            <input type="number" name="lnt" step="any" id="lnt" value="">
 
-            <button id="getPositionBtn" type="button">내 위치 가져오기</button>
+            <button id="getPositionBtn"  type="button">내 위치 가져오기</button>
             <button type="submit">근처 WIFI 정보 보기</button>
         </p>
     </form>
