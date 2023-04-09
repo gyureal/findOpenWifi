@@ -36,8 +36,8 @@
         .button-table {
             text-align: center;
         }
-
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="fragment/bodyHeader.jsp">
@@ -71,7 +71,19 @@
 
     <script>
         function deleteHistory(id) {
-            alert(id + 'delete button clicked');
+            $.ajax({
+                url: "/wifi/history",
+                type: "POST",
+                data: {id : id},
+                async: false,
+                success: function () {
+                    alert("데이터가 삭제되었습니다.");
+                    location.reload();
+                },
+                error: function () {
+                    alert("데이터 삭제 실패했습니다.");
+                }
+            });
         }
     </script>
 </body>

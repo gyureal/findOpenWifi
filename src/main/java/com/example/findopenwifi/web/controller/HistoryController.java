@@ -25,4 +25,12 @@ public class HistoryController extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/findOpenWifi/history.jsp")
                 .forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+
+        historyService.deleteHistory(id);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
 }
