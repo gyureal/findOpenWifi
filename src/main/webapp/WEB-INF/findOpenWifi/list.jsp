@@ -41,6 +41,7 @@
     </style>
 </head>
 <body>
+    <jsp:include page="util/loading/loading.jsp" />
      <jsp:include page="fragment/bodyHeader.jsp">
          <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보 구하기", "UTF-8")%>'/>
      </jsp:include>
@@ -51,7 +52,7 @@
             <label for="lnt"> ,LNT: </label>
             <input type="number" name="lnt" id="lnt" value="">
 
-            <button type="button" onclick="getMyLocation()">내 위치 가져오기</button>
+            <button id="getPositionBtn" type="button">내 위치 가져오기</button>
             <button type="submit">근처 WIFI 정보 보기</button>
         </p>
     </form>
@@ -109,8 +110,32 @@
 
 <script>
     function getMyLocation() {
+        function success(position) {
+            const latitude  = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
+            let lat = document.querySelector('#lat');
+            let lnt = document.querySelector('#lnt');
+            lat.value = latitude;
+            lnt.value = longitude;
+
+            hideLoading();
+            alert("위치 정보를 성공적으로 가져왔습니다.");
+        }
+
+        function error() {
+            alert('현재 위치를 가져오는데 실패했습니다.');
+        }
+
+        if(!navigator.geolocation) {
+            alert('현재 위치를 가져올 수 없는 브라우저 입니다.');
+        } else {
+            showLoading();
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
     }
+
+    document.querySelector('#getPositionBtn').addEventListener('click', getMyLocation);
 
     function validateInput() {
         var lat = document.getElementById('lat').value;

@@ -29,5 +29,6 @@ public class OpenApiController extends HttpServlet {
         req.setAttribute("applyCount", applyCount);
         req.getRequestDispatcher("/WEB-INF/findOpenWifi/searchFinished.jsp")
                 .forward(req, resp);
+
     }
 }
