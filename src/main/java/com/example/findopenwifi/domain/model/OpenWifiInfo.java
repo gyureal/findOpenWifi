@@ -1,13 +1,13 @@
 package com.example.findopenwifi.domain.model;
 
 import com.example.findopenwifi.domain.dto.RawWifiInfoObject;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class OpenWifiInfo {
 
     private int id;
