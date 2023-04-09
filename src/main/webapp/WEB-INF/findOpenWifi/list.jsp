@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>List</title>
@@ -45,6 +46,7 @@
      <jsp:include page="fragment/bodyHeader.jsp">
          <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보 구하기", "UTF-8")%>'/>
      </jsp:include>
+
     <form action="/wifi/list" method="post" onsubmit="return validateInput()">
         <p>
             <label for="lat"> LAT: </label>
@@ -86,7 +88,7 @@
         </c:if>
         <c:forEach items="${dtoList}" var="dto">
             <tr>
-                <td>${dto.distance}</td>
+                <td><fmt:formatNumber type="number" value="${dto.distance}" maxFractionDigits="4" /></td>
                 <td>${dto.mgrNo}</td>
                 <td>${dto.wrdofc}</td>
                 <td>${dto.mainNm}</td>
