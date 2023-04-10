@@ -12,34 +12,7 @@
 <head>
     <title>List</title>
     <meta charset="UTF-8">
-    <style>
-        table {
-            width: 100%;
-        }
-
-        thead th {
-            text-align: center;
-            background-color: #04B431;
-            color: #FFFFFF;
-            padding : 0.5em 0.5em
-        }
-
-        tbody tr td {
-            padding : 0.3em 0.5em
-        }
-
-        tbody tr:nth-child(2n) {
-            background-color: #F2F2F2;
-        }
-        tbody tr:nth-child(2n+1) {
-            background-color: #FFFFFF;
-        }
-
-        .button-table {
-            text-align: center;
-        }
-
-    </style>
+    <link href="/resources/css/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <jsp:include page="util/loading/loading.jsp" />
