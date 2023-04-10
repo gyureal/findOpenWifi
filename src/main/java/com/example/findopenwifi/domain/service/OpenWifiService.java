@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface OpenWifiService {
 
-    public void saveOpenApiRawData(List<OpenWifiInfo> openWifiInfo);
+    void saveOpenApiRawData(List<OpenWifiInfo> openWifiInfo);
 
-    public List<OpenWifiInfoDTO> getWifiNearBy(double x, double y);
+    List<OpenWifiInfoDTO> getWifiNearBy(double x, double y);
+
+    OpenWifiInfoDTO getWifiInfo(String mgrNo);
 }

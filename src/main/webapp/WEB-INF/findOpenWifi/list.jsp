@@ -64,7 +64,7 @@
                 <td><fmt:formatNumber type="number" value="${dto.distance}" maxFractionDigits="4" /></td>
                 <td>${dto.mgrNo}</td>
                 <td>${dto.wrdofc}</td>
-                <td>${dto.mainNm}</td>
+                <td><a href="/wifi/detail?mgrNo=${dto.mgrNo}">${dto.mainNm}</a></td>
                 <td>${dto.adres1}</td>
                 <td>${dto.adres2}</td>
                 <td>${dto.instlFloor}</td>

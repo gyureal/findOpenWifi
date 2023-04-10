@@ -63,4 +63,10 @@ public enum OpenWifiServiceImpl implements OpenWifiService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public OpenWifiInfoDTO getWifiInfo(String mgrNo) {
+        OpenWifiInfo wifi = openWifiInfoRepository.findByMgrNo(mgrNo);
+        return modelMapper.map(wifi, OpenWifiInfoDTO.class);
+    }
+
 }
