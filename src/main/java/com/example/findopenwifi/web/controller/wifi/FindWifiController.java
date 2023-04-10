@@ -1,4 +1,4 @@
-package com.example.findopenwifi.web.controller;
+package com.example.findopenwifi.web.controller.wifi;
 
 import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
 import com.example.findopenwifi.domain.model.OpenWifiInfo;

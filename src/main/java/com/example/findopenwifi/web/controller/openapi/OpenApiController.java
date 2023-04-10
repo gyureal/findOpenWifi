@@ -1,4 +1,4 @@
-package com.example.findopenwifi.web.controller;
+package com.example.findopenwifi.web.controller.openapi;
 
 import com.example.findopenwifi.domain.service.OpenApiService;
 import lombok.extern.log4j.Log4j2;
