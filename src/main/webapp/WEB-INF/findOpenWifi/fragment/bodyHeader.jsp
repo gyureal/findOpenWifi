@@ -27,9 +27,9 @@
         <span> | </span>
         <a href="#" onclick="getAllOpenApi()">Open API 와이파이 정보 가져오기</a>
         <span> | </span>
-        <a href="/bookmark/list">즐겨 찾기 보기</a>
+        <a href="/wifi/bookmark-list">즐겨 찾기 보기</a>
         <span> | </span>
-        <a href="/bookmark/group">즐겨 찾기 그룹 관리</a>
+        <a href="/wifi/bookmark-group">즐겨 찾기 그룹 관리</a>
     </div>
 </div>
 
@@ -46,7 +46,7 @@
 <script>
     function getAllOpenApi() {
         showLoading();
-        location.href="wifi/openApi";
+        location.href="/wifi/openApi";
     }
 </script>
 

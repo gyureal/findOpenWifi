@@ -13,13 +13,15 @@
     <title>Detail</title>
     <meta charset="UTF-8">
     <link href="/resources/css/table.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <jsp:include page="fragment/bodyHeader.jsp">
         <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보", "UTF-8")%>'/>
     </jsp:include>
-    <form id="bookmark-form" action="/bookmark/add" method="post">
-        <select name="groupName">
+    <form id="bookmarkAddForm" action="/wifi/bookmark-add" method="post">
+        <input type="hidden" name="mgrNo" value="${dto.mgrNo}">
+        <select name="groupId">
             <option value="">북마크 그룹 이름 선택</option>
             <c:forEach items="${groupList}" var="group">
                 <option value="${group.id}">${group.groupName}</option>
@@ -97,6 +99,33 @@
             <td>${dto.workDttm}</td>
         </tr>
     </table>
+
+    <!-- jQuery와 Ajax를 사용한 요청 -->
+    <script>
+        $(document).ready(function() {
+            $('#bookmarkAddForm').submit(function(e) {
+                e.preventDefault(); // form의 기본 동작을 막음
+
+                // Ajax 요청 생성
+                $.ajax({
+                    url: '/wifi/bookmark-add', // Ajax 요청을 처리할 서블릿의 URL
+                    method: 'POST', // Ajax 요청의 HTTP 메소드
+                    data: $('#bookmarkAddForm').serialize(), // Ajax 요청에 전송할 데이터
+                    success: function(response) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
+                        alert("성공적으로 추가되었습니다.");
+                        // 페이지 이동
+                        history.back();
+                    },
+                    error: function(xhr, status, error) { // Ajax 요청이 실패한 경우 실행될 콜백 함수
+                        console.log(error); // 에러 메시지를 콘솔에 출력
+                        alert("데이터 추가에 실패했습니다.");
+                        // 페이지 이동
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
 
 
 </body>
