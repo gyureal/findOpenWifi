@@ -18,7 +18,7 @@
     <jsp:include page="fragment/bodyHeader.jsp">
         <jsp:param name="titleName" value='<%=URLEncoder.encode("와이파이 정보", "UTF-8")%>'/>
     </jsp:include>
-    <form id="bookmark-form" action="bookmark-add" method="post">
+    <form id="bookmark-form" action="/bookmark/add" method="post">
         <select name="groupName">
             <option value="">북마크 그룹 이름 선택</option>
             <c:forEach items="${groupList}" var="group">
