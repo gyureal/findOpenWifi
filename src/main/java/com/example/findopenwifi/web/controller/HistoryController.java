@@ -1,8 +1,8 @@
 package com.example.findopenwifi.web.controller;
 
 import com.example.findopenwifi.domain.dto.SearchHistoryDTO;
-import com.example.findopenwifi.domain.service.HistoryService;
-import com.example.findopenwifi.domain.service.HistoryServiceImpl;
+import com.example.findopenwifi.domain.service.history.HistoryService;
+import com.example.findopenwifi.domain.service.history.HistoryServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

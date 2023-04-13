@@ -1,4 +1,4 @@
-package com.example.findopenwifi.domain.service;
+package com.example.findopenwifi.domain.service.history;
 
 import com.example.findopenwifi.domain.dto.SearchHistoryDTO;
 import com.example.findopenwifi.domain.model.SearchHistory;

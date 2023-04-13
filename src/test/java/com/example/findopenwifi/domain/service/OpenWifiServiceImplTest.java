@@ -2,23 +2,18 @@ package com.example.findopenwifi.domain.service;
 
 import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
-import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
-import org.assertj.core.api.Assertions;
+import com.example.findopenwifi.domain.service.history.HistoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class OpenWifiServiceImplTest {
 

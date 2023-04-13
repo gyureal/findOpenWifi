@@ -3,6 +3,8 @@ package com.example.findopenwifi.domain.service;
 import com.example.findopenwifi.domain.model.OpenWifiInfo;
 import com.example.findopenwifi.domain.model.SearchHistory;
 import com.example.findopenwifi.domain.repository.OpenWifiInfoRepository;
+import com.example.findopenwifi.domain.service.history.HistoryService;
+import com.example.findopenwifi.domain.service.history.HistoryServiceImpl;
 import com.example.findopenwifi.persistence.jdbc.Dao.OpenWifiInfoDAO;
 import com.example.findopenwifi.util.MapperUtil;
 import com.example.findopenwifi.domain.dto.OpenWifiInfoDTO;
